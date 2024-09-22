@@ -29,35 +29,19 @@ jobs:
             cc: "gcc-12", cxx: "g++-12",
           }
         - {
-            name: "Linux Clang 12 Rel(C++20)", artifact: "Linux.tar.xz",
-            os: ubuntu-22.04,
-            compiler: clang-12,
-            build_type: RelWithDebInfo,
-            cc: "clang-12", cxx: "clang++-12",
-          }
-        - {
             name: "Linux Clang 14 Rel(C++20)", artifact: "Linux.tar.xz",
             os: ubuntu-22.04,
             compiler: clang-14,
             build_type: RelWithDebInfo,
             cc: "clang-14", cxx: "clang++-14",
           }
-        #- {
-        #    name: "macOS Clang 14 Rel (C++20)", artifact: "macOS.tar.xz",
-        #    os: macos-12,
-        #    compiler: clang,
-        #    build_type: RelWithDebInfo,
-        #    cc: "clang", cxx: "clang++",
-        #  }
-        #- {
-        #    name: "Windows MSVC 2019 Rel (C++20)", artifact: "Windows-MSVC.tar.xz",
-        #    os: windows-latest,
-        #    compiler: msvc,
-        #    build_type: RelWithDebInfo,
-        #    cc: "cl", cxx: "cl",
-        #    environment_script: "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/VC/Auxiliary/Build/vcvars64.bat",
-        #    cmake_args: "-D CMAKE_CXX_STANDARD:STRING=20"
-        #  }
+        - {
+            name: "macOS Clang 14 Rel (C++20)", artifact: "macOS.tar.xz",
+            os: macos-14,
+            compiler: clang,
+            build_type: RelWithDebInfo,
+            cc: "clang", cxx: "clang++",
+          }
         - {
             name: "Windows MSVC 2022 Rel (C++20)", artifact: "Windows-MSVC.tar.xz",
             os: windows-latest,
@@ -68,8 +52,8 @@ jobs:
             cmake_args: "-D CMAKE_CXX_STANDARD:STRING=20"
           }
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
       with:
         python-version: '3.x'
     - run: pip install meson ninja
