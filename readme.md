@@ -2,7 +2,7 @@
 
 ## C++20 Concepts, traits and tools for handing C arrays
 
-<details><summary>Copyright &copy; 2023 The Lemuriad. Distributed under the Boost Software License, V1.0</summary>
+<details><summary>Copyright &copy; 2024 The Lemuriad. Distributed under the Boost Software License, V1.0</summary>
 
 ### **Boost Software License** - Version 1.0 - August 17th, 2003
 
