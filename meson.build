@@ -1,5 +1,6 @@
 project('c_array_support', 'cpp',
   default_options : ['cpp_std=c++20','warning_level=3'],
+  meson_version : '>=0.54.0',
   version : 'v1.1'
 )
 
@@ -13,9 +14,7 @@ c_array_support_dep = declare_dependency(
   include_directories : include_directories('.'),
 )
 
-if meson.version().version_compare('>=0.54.0')
-  meson.override_dependency('c_array_support', c_array_support_dep)
-endif
+meson.override_dependency('c_array_support', c_array_support_dep)
 
 import('pkgconfig').generate(
   name: 'c_array_support',
