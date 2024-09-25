@@ -9,15 +9,8 @@ headers = files('c_array_support.hpp', 'util_traits.hpp'
 
 install_headers(headers, subdir: 'c_array_support')
 
-if meson.get_compiler('cpp').get_id() == 'msvc'
-  extra_args = ['/Zc:preprocessor']
-else
-  extra_args = []
-endif
-
 c_array_support_dep = declare_dependency(
   include_directories : include_directories('.'),
-  compile_args : extra_args
 )
 
 if meson.version().version_compare('>=0.54.0')
