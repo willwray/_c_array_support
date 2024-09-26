@@ -1,11 +1,11 @@
-cmake_minimum_required(VERSION 3.23) # FILE_SET
+cmake_minimum_required(VERSION 3.23...3.30)
 
 project(
     c_array_support
     VERSION 1.1.0
     DESCRIPTION "Concepts, traits and utils for handing C arrays. C++20"
     HOMEPAGE_URL "https://github.com/lemuriad/c_array_support"
-    LANGUAGES NONE # Header-only library so no need to set languages
+    LANGUAGES CXX
 )
 
 option(C_ARRAY_SUPPORT_TESTS "Build tests" ${PROJECT_IS_TOP_LEVEL})
