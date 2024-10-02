@@ -1,12 +1,31 @@
-project('c_array_support', 'cpp',
+# ---- Get project VERSION major.minor.patch ----
+# ----  extracts version from 'git describe' ----
+
+# The git repo is tagged with e.g v1.2 version major.minor numbers only
+# with the patch number extracted from 'git describe' which appends the
+# number of commits since the tag (and a hash) -NUMCOMMITS-gHEXHASH
+project(
+  'c_array_support', 'cpp',
   default_options : ['cpp_std=c++20','warning_level=3'],
-  meson_version : '>=0.54.0',
-  version : 'v1.1'
+  meson_version : '>=1.0.0',
+  version : run_command(find_program('git'),'-C',meson.project_source_root(),
+                        'describe','--tags','--long','--abbrev=10',
+                        check: true).stdout().strip()
+                                    .substring(1,-12).replace('-','.')
 )
 
-headers = files('c_array_support.hpp', 'util_traits.hpp'
-                ,'c_array_assign.hpp', 'c_array_compare.hpp'
-                ,'namespace.hpp','ALLOW_ZERO_SIZE_ARRAY.hpp')
+# ---- meson_options.txt ----
+# --- 'tests' defaults True in top-level project else False in subproject ---
+TESTS = get_option('tests').disable_auto_if(meson.is_subproject()).allowed()
+
+headers = files(
+  'c_array_support.hpp',
+  'util_traits.hpp',
+  'c_array_assign.hpp',
+  'c_array_compare.hpp',
+  'namespace.hpp',
+  'ALLOW_ZERO_SIZE_ARRAY.hpp',
+)
 
 install_headers(headers, subdir: 'c_array_support')
 
@@ -24,6 +43,6 @@ import('pkgconfig').generate(
   url: 'https://github.com/Lemuriad/c_array_support',
 )
 
-if get_option('tests').disable_auto_if(meson.is_subproject()).allowed()
+if (TESTS)
   subdir('tests')
 endif

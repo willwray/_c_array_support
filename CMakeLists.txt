@@ -1,8 +1,24 @@
 cmake_minimum_required(VERSION 3.23...3.30)
 
+# ---- Get project VERSION major.minor.patch ----
+# ----  extracts version from 'git describe' ----
+
+# The git repo is tagged with e.g v1.2 version major.minor numbers only
+# with the patch number extracted from 'git describe' which appends the
+# number of commits since the tag (and a hash) -NUMCOMMITS-gHEXHASH
+find_package(Git)
+execute_process(
+    COMMAND ${GIT_EXECUTABLE} describe --tags --long
+    OUTPUT_VARIABLE GIT_DESCRIBE_TAGS
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}
+)
+string(REGEX REPLACE "v([0-9]*)\.([0-9]*)-([0-9]*)-g[a-f0-9]*$"
+       "\\1.\\2.\\3" VERSION_NUMBERS_FROM_GIT ${GIT_DESCRIBE_TAGS})
+
 project(
     c_array_support
-    VERSION 1.1.0
+    VERSION ${VERSION_NUMBERS_FROM_GIT}
     DESCRIPTION "Concepts, traits and utils for handing C arrays. C++20"
     HOMEPAGE_URL "https://github.com/lemuriad/c_array_support"
     LANGUAGES CXX
@@ -42,7 +58,7 @@ target_sources(
 if (NOT CMAKE_SKIP_INSTALL_RULES)
   if (PROJECT_IS_TOP_LEVEL)
     set(
-        CMAKE_INSTALL_INCLUDEDIR "c_array_support-${PROJECT_VERSION}"
+        CMAKE_INSTALL_INCLUDEDIR "include/c_array_support-${PROJECT_VERSION}"
         CACHE STRING ""
     )
     set_property(CACHE CMAKE_INSTALL_INCLUDEDIR PROPERTY TYPE PATH)
@@ -79,6 +95,3 @@ include(CTest)
     add_subdirectory(tests)
   endif()
 endif()
-
-
-
