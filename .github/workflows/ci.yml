@@ -53,6 +53,8 @@ jobs:
           }
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - uses: actions/setup-python@v5
       with:
         python-version: '3.x'
@@ -60,7 +62,6 @@ jobs:
     - uses: ilammy/msvc-dev-cmd@v1
     - run: meson setup ${{ matrix.config.compiler }}/
       env:
-        CC: ${{ matrix.config.cc }},
         CXX: ${{ matrix.config.cxx }}
     - run: meson test -C ${{ matrix.config.compiler }}/ -v
 
