@@ -43,14 +43,14 @@ target_sources(
   INTERFACE
     FILE_SET api
     TYPE HEADERS
-    BASE_DIRS .
+    BASE_DIRS c_array_support
     FILES
-      c_array_support.hpp
-      util_traits.hpp
-      c_array_assign.hpp
-      c_array_compare.hpp
-      namespace.hpp
-      ALLOW_ZERO_SIZE_ARRAY.hpp
+      c_array_support/c_array_support.hpp
+      c_array_support/util_traits.hpp
+      c_array_support/c_array_assign.hpp
+      c_array_support/c_array_compare.hpp
+      c_array_support/namespace.hpp
+      c_array_support/ALLOW_ZERO_SIZE_ARRAY.hpp
 )
 
 # ---- Install rules ----

@@ -19,18 +19,18 @@ project(
 TESTS = get_option('tests').disable_auto_if(meson.is_subproject()).allowed()
 
 headers = files(
-  'c_array_support.hpp',
-  'util_traits.hpp',
-  'c_array_assign.hpp',
-  'c_array_compare.hpp',
-  'namespace.hpp',
-  'ALLOW_ZERO_SIZE_ARRAY.hpp',
+  'c_array_support/c_array_support.hpp',
+  'c_array_support/util_traits.hpp',
+  'c_array_support/c_array_assign.hpp',
+  'c_array_support/c_array_compare.hpp',
+  'c_array_support/namespace.hpp',
+  'c_array_support/ALLOW_ZERO_SIZE_ARRAY.hpp',
 )
 
 install_headers(headers, subdir: 'c_array_support')
 
 c_array_support_dep = declare_dependency(
-  include_directories : include_directories('.'),
+  include_directories : include_directories('c_array_support'),
 )
 
 meson.override_dependency('c_array_support', c_array_support_dep)
